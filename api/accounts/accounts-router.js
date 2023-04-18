@@ -20,9 +20,16 @@ router.get("/:id", mA.checkAccountId, async (req, res, next) => {
   }
 });
 
-router.post("/", (req, res, next) => {
-  // KODLAR BURAYA
-});
+router.post(
+  "/",
+  mA.checkAccountPayload,
+  mA.checkAccountNameUnique,
+  async (req, res, next) => {
+    try {
+      let insertData = await Account;
+    } catch (error) {}
+  }
+);
 
 router.put("/:id", (req, res, next) => {
   // KODLAR BURAYA
