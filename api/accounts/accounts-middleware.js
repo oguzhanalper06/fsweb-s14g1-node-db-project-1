@@ -21,7 +21,7 @@ exports.checkAccountPayload = async (req, res, next) => {
   //   await accountSchema.validate(req.body);
   //   req.account = req.body;
   // } catch (error) {
-  //   res.status(400).json({ mesaage: error.mesaage || "Hata oluştu" });
+  //   res.status(400).json({ mesaage: error.mesaage || " Hata" });
   // }
   const { name, budget } = req.body;
   if (!name || budget === undefined) {

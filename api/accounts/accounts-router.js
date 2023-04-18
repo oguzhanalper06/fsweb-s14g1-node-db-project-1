@@ -26,22 +26,42 @@ router.post(
   mA.checkAccountNameUnique,
   async (req, res, next) => {
     try {
-      let insertData = await Account;
-    } catch (error) {}
+      let insertData = await Account.create(req.body);
+      res.status(201).json(insertData);
+    } catch (error) {
+      next(error);
+    }
   }
 );
 
-router.put("/:id", (req, res, next) => {
-  // KODLAR BURAYA
-});
+router.put(
+  "/:id",
+  mA.checkAccountId,
+  mA.checkAccountPayload,
+  async (req, res, next) => {
+    try {
+      const updateAccount = await Account.updateById(req.params.id, req.body);
+      res.json(updateAccount);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
-router.delete("/:id", (req, res, next) => {
-  // KODLAR BURAYA
+router.delete("/:id", mA.checkAccountId, async (req, res, next) => {
+  try {
+    await Account.deleteById(req.params.id);
+    res.json(req.account);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.use((err, req, res, next) => {
-  // eslint-disable-line
-  // KODLAR BURAYA
+  res.status(err.status || 500).json({
+    customMessage: "Hata Oluştu",
+    message: err.message,
+  });
 });
 
 module.exports = router;
